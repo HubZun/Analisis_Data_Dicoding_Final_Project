@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Load datasets
 day_df = pd.read_csv("../data/day.csv")
@@ -67,6 +68,25 @@ else:
     ax.set_ylabel("Jumlah Penyewaan")
     ax.legend()
     st.pyplot(fig)
+
+st.subheader('Pengaruh Cuaca terhadap Jumlah Pengguna Sepeda Harian')
+# Membuat visualisasi pertama
+fig1 = plt.figure(figsize=(10, 6))
+sns.boxplot(x='weathersit', y='cnt', data=day_df)
+plt.title('Pengaruh Cuaca terhadap Jumlah Pengguna Sepeda Harian')
+plt.xlabel('Kondisi Cuaca (1: Cerah, 2: Mendung, 3: Hujan)')
+plt.ylabel('Jumlah Pengguna Sepeda per Hari')
+st.pyplot(fig1)
+
+st.subheader('Pengaruh Hari Kerja terhadap Penggunaan Sepeda per Jam')
+# Membuat visualisasi kedua
+fig2 = plt.figure(figsize=(10, 6))
+sns.boxplot(x='workingday', y='cnt', data=hour_df)
+plt.title('Pengaruh Hari Kerja terhadap Penggunaan Sepeda per Jam')
+plt.xlabel('Hari Kerja (0: Tidak, 1: Ya)')
+plt.ylabel('Jumlah Pengguna Sepeda per Jam')
+st.pyplot(fig2)
+
 
 # Footer
 st.write("Dashboard ini menggunakan dataset penyewaan sepeda.")
